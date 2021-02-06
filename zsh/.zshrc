@@ -1,224 +1,172 @@
-#!/bin/zsh
+#####################
+# FIRST PROMPT LINE #
+#####################
+neofetch
 
-# Add poetry autocompletion
-fpath+=~/.zfunc
+#####################
+# ZINIT             #
+#####################
 
-### Added by Zinit's installer
-if [[ ! -f $HOME/.zinit/bin/zinit.zsh ]]; then
-    print -P "%F{33}▓▒░ %F{220}Installing %F{33}DHARMA%F{220} Initiative Plugin Manager (%F{33}zdharma/zinit%F{220})…%f"
-    command mkdir -p "$HOME/.zinit" && command chmod g-rwX "$HOME/.zinit"
-    command git clone https://github.com/zdharma/zinit "$HOME/.zinit/bin" && \
-        print -P "%F{33}▓▒░ %F{34}Installation successful.%f%b" || \
-        print -P "%F{160}▓▒░ The clone has failed.%f%b"
+typeset -A ZINIT
+ZINIT_HOME=$XDG_CACHE_HOME/zsh/zinit
+ZINIT[HOME_DIR]=$ZINIT_HOME
+ZINIT[ZCOMPDUMP_PATH]=$XDG_CACHE_HOME/zsh/zcompdump
+
+if [[ ! -f $ZINIT_HOME/bin/zinit.zsh ]]; then
+	git clone https://github.com/zdharma/zinit $ZINIT_HOME/bin
+	zcompile $ZINIT_HOME/bin/zinit.zsh
 fi
-
-source "$HOME/.zinit/bin/zinit.zsh"
+source $ZINIT_HOME/bin/zinit.zsh
+autoload -Uz _zinit
 (( ${+_comps} )) && _comps[zinit]=_zinit
-### End of Zinit's installer chunk
 
 #####################
-# PROMPT            #
+# THEME             #
 #####################
-zinit lucid for \
-    as"command" from"gh-r" atinit'export N_PREFIX="$HOME/n"; [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PREFIX/bin"' atload'eval "$(starship init zsh)"' bpick'*unknown-linux-gnu*' \
-    starship/starship \
-
-
-##########################
-# OMZ Libs and Plugins   #
-##########################
-
-# IMPORTANT:
-# Ohmyzsh plugins and libs are loaded first as some these sets some defaults which are required later on.
-# Otherwise something will look messed up
-# ie. some settings help zsh-autosuggestions to clear after tab completion
-
-setopt promptsubst
-
-# Explanation:
-# - Loading tmux first, to prevent jumps when tmux is loaded after .zshrc
-# - History plugin is loaded early (as it has some defaults) to prevent empty history stack for other plugins
-zinit lucid for \
-    atinit"HIST_STAMPS=dd.mm.yyyy" \
-    OMZL::history.zsh \
-
-
-# zinit wait lucid for \
-	# OMZL::clipboard.zsh \
-	# OMZL::compfix.zsh \
-	# OMZL::completion.zsh \
-	# OMZL::correction.zsh \
-    # atload"
-        # alias ..='cd ..'
-        # alias ...='cd ../..'
-        # alias ....='cd ../../..'
-        # alias .....='cd ../../../..'
-    # " \
-	# OMZL::directories.zsh \
-	# OMZL::git.zsh \
-	# OMZL::grep.zsh \
-	# OMZL::key-bindings.zsh \
-	# OMZL::spectrum.zsh \
-	# OMZL::termsupport.zsh \
-    # atload"
-        # alias gcd='gco dev'
-    # " \
-	# OMZP::git \
-	# OMZP::fzf \
-    # atload"
-        # alias dcupb='docker-compose up --build'
-    # " \
-	# OMZP::docker-compose \
-	# as"completion" \
-    # OMZP::docker/_docker \
-    # djui/alias-tips \
-    # hlissner/zsh-autopair \
-    # chriskempson/base16-shell \
+zinit ice pick"async.zsh" src"pure.zsh"
+zinit light sindresorhus/pure
 
 #####################
 # PLUGINS           #
 #####################
-# @source: https://github.com/crivotz/dot_files/blob/master/linux/zplugin/zshrc
+# AUTOSUGGESTIONS, TRIGGER PRECMD HOOK UPON LOAD
+ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
+zinit ice wait"0a" lucid atload"_zsh_autosuggest_start"
+zinit light zsh-users/zsh-autosuggestions
+# ENHANCD
+zinit ice wait"0b" lucid
+zinit light b4b4r07/enhancd
+export ENHANCD_FILTER=fzf:fzy:peco
+# HISTORY SUBSTRING SEARCHING
+zinit ice wait"0b" lucid atload'bindkey "$terminfo[kcuu1]" history-substring-search-up; bindkey "$terminfo[kcud1]" history-substring-search-down'
+zinit light zsh-users/zsh-history-substring-search
+bindkey '^[[A' history-substring-search-up
+bindkey '^[[B' history-substring-search-down
+bindkey -M vicmd 'k' history-substring-search-up
+bindkey -M vicmd 'j' history-substring-search-down
+# TAB COMPLETIONS
+zinit ice wait"0b" lucid blockf
+zinit light zsh-users/zsh-completions
+zstyle ':completion:*' completer _expand _complete _ignored _approximate
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
+zstyle ':completion:*' menu select=2
+zstyle ':completion:*' select-prompt '%SScrolling active: current selection at %p%s'
+zstyle ':completion:*:descriptions' format '-- %d --'
+zstyle ':completion:*:processes' command 'ps -au$USER'
+zstyle ':completion:complete:*:options' sort false
+zstyle ':fzf-tab:complete:_zlua:*' query-string input
+zstyle ':completion:*:*:*:*:processes' command "ps -u $USER -o pid,user,comm,cmd -w -w"
+zstyle ':fzf-tab:complete:kill:argument-rest' extra-opts --preview=$extract'ps --pid=$in[(w)1] -o cmd --no-headers -w -w' --preview-window=down:3:wrap
+zstyle ":completion:*:git-checkout:*" sort false
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+# FZF
+zinit ice lucid wait'0b' from"gh-r" as"program"
+zinit light junegunn/fzf
+# BIND MULTIPLE WIDGETS USING FZF
+zinit ice lucid wait'0c' multisrc"shell/{completion,key-bindings}.zsh" id-as"junegunn/fzf_completions" pick"/dev/null"
+zinit light junegunn/fzf
+# FZF-TAB
+zinit ice wait"1" lucid
+zinit light Aloxaf/fzf-tab
+# SYNTAX HIGHLIGHTING
+zinit ice wait"0c" lucid atinit"zpcompinit;zpcdreplay"
+zinit light zdharma/fast-syntax-highlighting
+# EXA
+zinit ice wait"2" lucid from"gh-r" as"program" mv"exa* -> exa"
+zinit light ogham/exa
+zinit ice wait blockf atpull'zinit creinstall -q .'
+# RIPGREP
+zinit ice from"gh-r" as"program" mv"ripgrep* -> ripgrep" pick"ripgrep/rg"
+zinit light BurntSushi/ripgrep
+# PYENV
+zinit ice atclone'PYENV_ROOT="$PWD" ./libexec/pyenv init - > zpyenv.zsh' \
+    atinit'export PYENV_ROOT="$PWD"' atpull"%atclone" \
+    as'command' pick'bin/pyenv' src"zpyenv.zsh" nocompile'!'
+zinit light pyenv/pyenv
+# GIT DIFF
+zinit ice lucid wait"0" as"program" from"gh-r" pick"delta*/delta"
+zinit light 'dandavison/delta'
+# BAT
+zinit ice from"gh-r" as"program" mv"bat* -> bat" pick"bat/bat" atload"alias cat=bat"
+zinit light sharkdp/bat
+# BAT-EXTRAS
+zinit ice wait"1" as"program" pick"src/batgrep.sh" lucid
+zinit ice wait"1" as"program" pick"src/batdiff.sh" lucid
+zinit light eth-p/bat-extras
+# FORGIT
+zinit ice wait lucid
+zinit load 'wfxr/forgit'
+# LAZYGIT
+zinit ice lucid wait"0" as"program" from"gh-r" mv"lazygit* -> lazygit" atload"alias lg='lazygit'"
+zinit light 'jesseduffield/lazygit'
+# VI-MODE
+zinit ice depth=1
+zinit light jeffreytse/zsh-vi-mode
+#####################
+# HISTORY           #
+#####################
+[ -z "$HISTFILE" ] && HISTFILE="$HOME/.zhistory"
+HISTSIZE=290000
+SAVEHIST=$HISTSIZE
 
-# IMPORTANT:
-# These plugins should be loaded after ohmyzsh plugins
-
-zinit wait lucid for \
-    light-mode atinit"ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20" atload"_zsh_autosuggest_start" \
-        zsh-users/zsh-autosuggestions \
-    light-mode atinit"
-        typeset -gA FAST_HIGHLIGHT;
-        FAST_HIGHLIGHT[git-cmsg-len]=100;
-        zpcompinit;
-        zpcdreplay;
-    " \
-        zdharma/fast-syntax-highlighting \
-    light-mode blockf atpull'zinit creinstall -q .' \
-    atinit"
-        zstyle ':completion:*' completer _expand _complete _ignored _approximate
-        zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
-        zstyle ':completion:*' menu select=2
-        zstyle ':completion:*' select-prompt '%SScrolling active: current selection at %p%s'
-        zstyle ':completion:*:descriptions' format '-- %d --'
-        zstyle ':completion:*:processes' command 'ps -au$USER'
-        zstyle ':completion:complete:*:options' sort false
-        zstyle ':fzf-tab:complete:_zlua:*' query-string input
-        zstyle ':completion:*:*:*:*:processes' command 'ps -u $USER -o pid,user,comm,cmd -w -w'
-        zstyle ':fzf-tab:complete:kill:argument-rest' extra-opts --preview=$extract'ps --pid=$in[(w)1] -o cmd --no-headers -w -w' --preview-window=down:3:wrap
-        zstyle ':fzf-tab:complete:cd:*' extra-opts --preview=$extract'exa -1 --color=always ${~ctxt[hpre]}$in'
-    " \
-        zsh-users/zsh-completions \
-    bindmap"^R -> ^H" atinit"
-        zstyle :history-search-multi-word page-size 10
-        zstyle :history-search-multi-word highlight-color fg=red,bold
-        zstyle :plugin:history-search-multi-word reset-prompt-protect 1
-    " \
-        zdharma/history-search-multi-word \
-    reset \
-    atclone"local P=${${(M)OSTYPE:#*darwin*}:+g}
-            \${P}sed -i \
-            '/DIR/c\DIR 38;5;63;1' LS_COLORS; \
-            \${P}dircolors -b LS_COLORS > c.zsh" \
-    atpull'%atclone' pick"c.zsh" nocompile'!' \
-    atload'zstyle ":completion:*" list-colors “${(s.:.)LS_COLORS}”' \
-        trapd00r/LS_COLORS
+# SETOPT            #
+#####################
+setopt extended_history       # record timestamp of command in HISTFILE
+setopt hist_expire_dups_first # delete duplicates first when HISTFILE size exceeds HISTSIZE
+setopt hist_ignore_all_dups   # ignore duplicated commands history list
+setopt hist_ignore_space      # ignore commands that start with space
+setopt hist_verify            # show command with history expansion to user before running it
+setopt inc_append_history     # add commands to HISTFILE in order of execution
+setopt share_history          # share command history data
+setopt always_to_end          # cursor moved to the end in full completion
+setopt hash_list_all          # hash everything before completion
+setopt always_to_end          # when completing from the middle of a word, move the cursor to the end of the word
+setopt complete_in_word       # allow completion from within a word/phrase
+setopt nocorrect                # spelling correction for commands
+setopt list_ambiguous         # complete as much of a completion until it gets ambiguous.
+setopt nolisttypes
+setopt listpacked
+setopt automenu
+unsetopt BEEP
+setopt vi
 
 #####################
-# Misc Stuff        #
+# COLORING          #
 #####################
+autoload colors && colors
 
-# VIM like
-#{{{
-bindkey -v
-bindkey 'jk' vi-cmd-mode
-bindkey -v '^?' backward-delete-char
+#####################
+# Aliases           #
+#####################
+source $HOME/.config/zsh/aliases.sh
 
-# xsel copy
-alias pbcopy='xsel --clipboard --input'
-alias pbpaste='xsel --clipboard --output'
+#####################
+# FZF SETTINGS      #
+#####################
+export FZF_DEFAULT_OPTS="
+--ansi
+--layout=default
+--info=inline
+--height=50%
+--multi
+--preview-window=right:50%
+--preview-window=sharp
+--preview-window=cycle
+--preview '([[ -f {} ]] && (bat --style=numbers --color=always --theme=gruvbox --line-range :500 {} || cat {})) || ([[ -d {} ]] && (tree -C {} | less)) || echo {} 2> /dev/null | head -200'
+--prompt='λ -> '
+--pointer='|>'
+--marker='✓'
+--bind 'ctrl-e:execute(nvim {} < /dev/tty > /dev/tty 2>&1)' > selected
+--bind 'ctrl-v:execute(code {+})'"
+export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow -g "!{.git,node_modules}/*" 2> /dev/null'
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
-x-yank() {
-    zle copy-region-as-kill
-    print -rn -- $cutbuffer | pbcopy
-}
-zle -N x-yank
+#####################
+# PATH              #
+#####################
+export PATH=$PATH:/usr/local/go/bin:~/.local/bin:~/bin
 
-x-cut() {
-    zle kill-region
-    print -rn -- $cutbuffer | pbcopy
-}
-zle -N x-cut
-
-x-paste() {
-    PASTE=$(pbpaste)
-    LBUFFER="$LBUFFER${RBUFFER:0:1}"
-    RBUFFER="$PASTE${RBUFFER:1:${#RBUFFER}}"
-}
-zle -N x-paste
-
-bindkey -M vicmd "y" x-yank
-bindkey -M vicmd "Y" x-cut
-bindkey -M vicmd "p" x-paste
-
-# Change cursor shape for different vi modes.
-function zle-keymap-select {
-  if [[ ${KEYMAP} == vicmd ]] ||
-     [[ $1 = 'block' ]]; then
-    echo -ne '\e[1 q'
-  elif [[ ${KEYMAP} == main ]] ||
-       [[ ${KEYMAP} == viins ]] ||
-       [[ ${KEYMAP} = '' ]] ||
-       [[ $1 = 'beam' ]]; then
-    echo -ne '\e[5 q'
-  fi
-}
-zle -N zle-keymap-select
-zle-line-init() {
-    zle -K viins # initiate `vi insert` as keymap (can be removed if `bindkey -V` has been set elsewhere)
-    echo -ne "\e[5 q"
-}
-zle -N zle-line-init
-echo -ne '\e[5 q' # Use beam shape cursor on startup.
-preexec() { echo -ne '\e[5 q' ;} # Use beam shape cursor for each new prompt.
-
-#}}}
-
-# External Sources
-#{{{
-
-# Load aliases and shortcuts if existent.
-[ -f "$HOME/.config/zsh/aliases" ] && source "$HOME/.config/zsh/aliases"
-
-
-# Colorize manpages
-export PAGER="most"
-export CONDA_HOME="home/inco/miniconda3"
-
-# Use vim like manpages
-viman () { text=$(man "$@") && echo "$text" | vim -R +":set ft=man" - ; }
-
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/home/inco/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
-else
-    if [ -f "/home/inco/miniconda3/etc/profile.d/conda.sh" ]; then
-        . "/home/inco/miniconda3/etc/profile.d/conda.sh"
-    else
-        export PATH="/home/inco/miniconda3/bin:$PATH"
-    fi
-fi
-unset __conda_setup
-# <<< conda initialize <<<
-
-# >>> direnv init >>>
-# eval "$(direnv hook zsh)"
-# <<< direnv init <<<
-
-# Created by `userpath` on 2021-01-31 09:01:59
-export PATH="$PATH:/home/inco/.local/bin"
-
-# Pyenv automatic
-eval "$(pyenv init -)"
-eval "$(pyenv virtualenv-init -)"
+#####################
+# GO SETTINGS       #
+#####################
+export GOPATH=$HOME/Dev/go

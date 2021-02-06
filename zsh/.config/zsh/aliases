@@ -31,108 +31,6 @@ ex ()
   fi
 }
 
-## System
-# {{{
-alias cat="ccat"
-alias ls="exa"
-alias grep="rg"
-alias fm="cfiles"
-
-createenvrc() {
-  echo layout anaconda $1 > .envrc
-  direnv allow .
-}
-alias cenv=createenvrc
-
-alias y="yay -S"
-alias sps="sudo pacman -S"
-alias syu="sudo pacman -Syu"
-alias spr="sudo pacman -R"
-
-alias rf="rm -rf"
-alias v="nvim"
-alias vrc="nvim -S ~/.config/nvim/sessions/vimrc"
-alias zrc="nvim ~/.zshrc"
-alias prc="nvim ~/.config/picom.conf"
-alias arc="nvim ~/.config/alacritty.yml"
-alias irc="nvim ~/.config/i3/config"
-alias mrc="nvim ~/.neomuttrc"
-alias xrc="nvim ~/.xinitrc"
-alias Xrc="nvim ~/.Xressources"
-alias la="ls -al"
-alias reload="source ~/.zshrc"
-alias wiki="nvim ~/.config/vimwiki/index.md"
-alias ca="conda activate py3conda"
-alias ci="conda install -c"
-alias cu="conda update"
-alias \#='sudo -v; sudo'
-alias ..='cd ..'
-# }}}
-
-# TaskWarrior
-# {{{
-
-alias ta="task add"
-alias tap='task add project:Personal'
-alias taw='task add project:Work'
-alias tl="task list"
-alias tproj=taskprojfunc
-alias ttag=tasktagfunc
-alias tw=taskwaitfunc
-alias td=taskdeletefunc
-
-# functions
-taskprojfunc () {
-    task $1 modify project:$2
-}
-tasktagfunc () {
-
-    # task 1 modify tag "fruits"
-    task $1 modify tag:$2
-}
-taskwaitfunc(){
-    # task 1 wait:+5d
-    task $1 wait:$2
-}
-taskdeletefunc(){
-    # task 1 wait:+5d
-    task $1 delete
-}#}}}
-
-
-#learned how2
-alias "todb"="bash ~/.config/how2/input "
-alias "db"="bash ~/.config/how2/output "
-
-# YADM
-# {{{
-alias y="yadm enter"
-alias ys="yadm status"
-alias ya="yadm add"
-alias ym="yadm commit -m"
-alias yp="yadm push origin master"
-alias yb="yadm branch"
-alias yc="yadm checkout"
-alias yd="yadm diff"
-alias yl="yadm list -a"
-alias ye="yadm encyrpt"
-# }}}
-
-# GIT
-# {{{
-alias gs="git status"
-alias ga="git add"
-alias gm="git commit -m"
-alias gpush="git push origin master"
-alias gb="git branch"
-alias gc="git checkout"
-alias mail="neomutt"
-alias svim="sudoedit"
-alias linode="ssh inco@139.162.151.23"
-# }}}
-
-# Alias completion functions
-#{{{
 # blank aliases
 typeset -a baliases
 baliases=()
@@ -171,5 +69,84 @@ zle -N expand-alias-space
 bindkey " " expand-alias-space
 bindkey -M isearch " " magic-space
 
-#}}}
-#/* vim: set filetype=zsh : */ 
+## System
+# {{{
+alias ls="exa"
+alias fm="cfiles"
+
+
+ialias -g rg=batgrep.sh
+ialias -g bd=batdiff.sh
+ialias -g man=batman.sh
+ialias -g cd=__enhanced::cd
+
+alias cenv=createenvrc
+
+alias y="yay -S"
+alias sps="sudo pacman -S"
+alias syu="sudo pacman -Syu"
+alias spr="sudo pacman -R"
+
+alias rf="rm -rf"
+alias v="nvim"
+alias vrc="nvim -S ~/.config/nvim/sessions/vimrc"
+alias zrc="nvim ~/.zshrc"
+alias prc="nvim ~/.config/picom.conf"
+alias arc="nvim ~/.config/alacritty.yml"
+alias irc="nvim ~/.config/i3/config"
+alias mrc="nvim ~/.neomuttrc"
+alias xrc="nvim ~/.xinitrc"
+alias Xrc="nvim ~/.Xressources"
+alias la="ls -al"
+alias reload="source ~/.zshrc"
+alias wiki="nvim ~/.config/vimwiki/index.md"
+alias \#='sudo -v; sudo'
+alias ..='cd ..'
+alias aliasrc="nvim ~/.config/zsh/aliases.sh"
+alias gconfig="nvim ~/.config/git/config"
+# }}}
+
+# TaskWarrior
+# {{{
+
+alias ta="task add"
+alias tap='task add project:Personal'
+alias taw='task add project:Work'
+alias tl="task list"
+alias tproj=taskprojfunc
+alias ttag=tasktagfunc
+alias tw=taskwaitfunc
+alias td=taskdeletefunc
+
+# functions
+taskprojfunc () {
+    task $1 modify project:$2
+}
+tasktagfunc () {
+
+    # task 1 modify tag "fruits"
+    task $1 modify tag:$2
+}
+taskwaitfunc(){
+    # task 1 wait:+5d
+    task $1 wait:$2
+}
+taskdeletefunc(){
+    # task 1 wait:+5d
+    task $1 delete
+}#}}}
+
+
+# GIT
+# {{{
+alias gs="git status"
+alias ga="git add"
+alias gm="git commit -m"
+alias gpush="git push origin master"
+alias gb="git branch"
+alias gc="git checkout"
+alias mail="neomutt"
+alias svim="sudoedit"
+alias linode="ssh inco@139.162.151.23"
+# }}}
+
