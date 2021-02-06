@@ -1,0 +1,353 @@
+;==========================================================
+;
+;
+;   ██████╗  ██████╗ ██╗  ██╗   ██╗██████╗  █████╗ ██████╗
+;   ██╔══██╗██╔═══██╗██║  ╚██╗ ██╔╝██╔══██╗██╔══██╗██╔══██╗
+;   ██████╔╝██║   ██║██║   ╚████╔╝ ██████╔╝███████║██████╔╝
+;   ██╔═══╝ ██║   ██║██║    ╚██╔╝  ██╔══██╗██╔══██║██╔══██╗
+;   ██║     ╚██████╔╝███████╗██║   ██████╔╝██║  ██║██║  ██║
+;   ╚═╝      ╚═════╝ ╚══════╝╚═╝   ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝
+;
+;==========================================================
+
+[colors]
+;background = ${xrdb:color0:#222}
+background = #222
+background-alt = #444
+;foreground = ${xrdb:color7:#222}
+foreground = #dfdfdf
+foreground-alt = #555
+primary = #E1D4AE
+secondary = #e60053
+alert = #bd2c40
+
+;================================
+;TOP LEFT BAR
+;================================
+[bar/leftbar]
+
+;MONITOR
+;-------
+;check monitor
+;polybar -m | cut -d ':' -f 1
+monitor = ${env:MONITOR:HDMI-0}
+
+;DIMENSIONS
+;----------
+width = 100%
+height = 22
+offset-x = 0
+offset-y = 0
+
+;LOCATION
+;--------
+bottom = true
+
+;BODERS
+;----------
+border-top-size = 3
+border-bottom-size = 0
+border-right-size = 5
+border-left-size = 5
+
+;MISCELLANEOUS
+;-------------
+radius =3.0
+fixed-center = false
+padding-left = 0
+padding-right = 1
+
+background = ${colors.background}
+foreground = ${colors.foreground}
+
+line-size = 3
+line-color = #f00
+
+border-size = 5
+border-color = #00000000
+
+tray-position = none
+tray-padding =2
+
+cursor-click = pointer
+cursor-scroll = ns-resize
+
+override-redirect = false
+
+;FONTS
+;-----
+font-0 = sanfrancisco:style=Regular:size=11:antialias=true;3"
+font-1 = fontello
+font-2 = "Font Awesome 5 Free:style=Solid:pixelsize=9;3"
+font-3 = "Font Awesome 5 Brands:pixelsize=9;3"
+font-4 = "Weather Icons:style=Regular"
+
+;MODULES
+;-------
+module-margin-left = 1
+module-margin-right = 2
+
+modules-left = powermenu i3
+modules-center = xwindow
+modules-right = storage memory cpu temperature
+;================================
+;TOP RIGHT BAR
+;================================
+[bar/rightbar]
+inherit = bar/leftbar
+;MONITOR
+;-------
+;check monitor
+;polybar -m | cut -d ':' -f 1
+monitor = ${env:MONITOR:DP-1}
+
+;MODULES
+;-------
+modules-left = i3
+modules-center = pacman-updates networkspeeddown networkspeedup
+modules-right = weather pulseaudio time
+
+
+;================================
+;MODULES
+;================================
+
+[module/xwindow]
+type = internal/xwindow
+label = %title:0:30:...%
+label-foreground = ${colors.primary}
+
+;_________________
+[module/xkeyboard]
+type = internal/xkeyboard
+blacklist-0 = num lock
+
+format-prefix = " "
+format-prefix-foreground = ${colors.foreground-alt}
+format-prefix-underline = ${colors.secondary}
+
+label-layout = %layout%
+label-layout-underline = ${colors.secondary}
+
+label-indicator-padding = 2
+label-indicator-margin = 1
+label-indicator-background = ${colors.secondary}
+label-indicator-underline = ${colors.secondary}
+
+;_________________
+[module/i3]
+type = internal/i3
+format = <label-state> <label-mode>
+index-sort = true
+wrapping-scroll = false
+
+ws-icon-0 = 1;
+ws-icon-1 = 2;
+ws-icon-2 = 3;
+ws-icon-3 = 4;
+ws-icon-4 = 5;
+ws-icon-5 = 6;
+ws-icon-6 = 7;
+ws-icon-7 = 8;
+ws-icon-8 = 9;
+ws-icon-default = 10;
+
+; Only show workspaces on the same output as the bar
+pin-workspaces = true
+
+label-mode-padding = 2
+label-mode-foreground = #000
+label-mode-background = ${colors.primary}
+
+; focused = Active workspace on focused monitor
+label-focused = %icon% %name%
+label-focused-background = ${colors.background-alt}
+label-focused-underline= ${colors.primary}
+label-focused-padding = 2
+
+; unfocused = Inactive workspace on any monitor
+label-unfocused = %icon% %name%
+label-unfocused-padding = 2
+
+; visible = Active workspace on unfocused monitor
+label-visible = %icon% %name%
+label-visible-background = ${self.label-focused-background}
+label-visible-underline = ${self.label-focused-underline}
+label-visible-padding = ${self.label-focused-padding}
+
+; urgent = Workspace with urgency hint set
+label-urgent = %icon% %name%
+label-urgent-background = ${colors.alert}
+label-urgent-padding = 2
+
+; Separator in between workspaces
+; label-separator = |
+
+;_________________
+[module/mpd]
+type = internal/mpd
+format-online = <label-song>  <icon-prev> <icon-stop> <toggle> <icon-next>
+
+icon-prev = 
+icon-stop = 
+icon-play = 
+icon-pause = 
+icon-next = 
+
+label-song-maxlen = 25
+label-song-ellipsis = true
+
+;_________________
+[module/cpu]
+type = internal/cpu
+interval = 2
+format-prefix = " CPU"
+format-prefix-foreground = ${colors.primary}
+format-underline =
+label = %percentage:2%%
+label-foreground = ${colors.primary}
+
+;_________________
+[module/memory]
+type = internal/memory
+interval = 2
+format-prefix = " RAM "
+format-prefix-foreground = ${colors.primary}
+format-underline =
+label = %percentage_used%%
+label-foreground = ${colors.primary}
+
+[module/eth]
+type = internal/network
+interface = enp0s31f6
+interval = 30
+
+format-connected-prefix = ""
+format-connected-prefix-foreground = ${colors.primary}
+label-connected =.
+label-foreground = ${colors.primary}
+
+;_________________
+[module/pulseaudio]
+type = internal/pulseaudio
+sink = alsa_output.usb-Topping_E30-00.iec958-stereo
+use-ui-max=false
+interval = 3
+
+format-volume = <ramp-volume> <label-volume>
+label-volume = %percentage%%
+label-volume-foreground = ${colors.primary}
+
+label-muted = 
+label-muted-foreground = #666
+
+ramp-volume-foreground = ${colors.primary}
+ramp-volume-0 = 
+ramp-volume-1 = 
+ramp-volume-2 = 
+
+click-right = pavucontrol &
+;_________________
+[module/temperature]
+type = internal/temperature
+thermal-zone = 0
+warn-temperature = 60
+
+format = <label>
+format-foreground = ${colors.primary}
+format-underline =
+format-warn = <label-warn>
+format-warn-underline =
+
+label =  T %temperature-c%
+label-warn =  %temperature-c%
+label-warn-foreground = ${colors.secondary}
+label-foreground = ${colors.primary}
+
+;_________________
+[module/weather]
+type=custom/script
+exec=~/.config/polybar/weather.sh
+interval=30
+label=Mittenwald %{T5} %output%
+format-foreground = ${colors.primary}
+format-background = ${colors.background}
+
+;_________________
+[module/powermenu]
+type = custom/menu
+expand-right = true
+format-spacing = 1
+
+label-open = "  "
+label-open-foreground = ${colors.primary}
+label-close = " "
+label-close-foreground = ${colors.secondary}
+label-separator = |
+label-separator-foreground = ${colors.primary}
+
+menu-0-0 = reboot
+menu-0-0-exec = reboot
+menu-0-1 = power off
+menu-0-1-exec = poweroff
+
+;_________________
+[module/pacman-updates]
+type = custom/script
+exec =~/.config/polybar/pac_updates.sh
+interval = 100
+label = %output%
+format-foreground = ${colors.primary}
+format-background = ${colors.background}
+
+;_________________
+[module/storage]
+type = custom/script
+exec =~/.config/polybar/filesystem.sh
+interval = 25
+label = %output%
+format-foreground = ${colors.primary}
+format-background = ${colors.background}
+
+;_________________
+[module/networkspeedup]
+type = internal/network
+interface = enp0s31f6
+label-connected = "%upspeed:7%"
+format-connected = <label-connected>
+format-connected-prefix = " "
+format-connected-prefix-foreground = ${colors.primary}
+format-connected-foreground = ${colors.primary}
+format-connected-background = ${colors.background}
+
+;_________________
+[module/time]
+type = custom/script
+exec = date +"  %a, %d. %b   %H:%M  "
+interval=30
+click-left = date +"KW/%W   %a, %d. %b %Y   %H:%M  "
+format-foreground = ${colors.primary}
+format-background = ${colors.background}
+;_________________
+[module/networkspeeddown]
+type = internal/network
+interface = enp0s31f6
+label-connected = "%downspeed:7%"
+format-connected = <label-connected>
+format-connected-prefix = "  "
+format-connected-prefix-foreground = ${colors.primary}
+format-connected-foreground = ${colors.primary}
+format-connected-background = ${colors.background}
+[settings]
+screenchange-reload = true
+;compositing-background = xor
+;compositing-background = screen
+;compositing-foreground = source
+;compositing-border = over
+;pseudo-transparency = false
+
+[global/wm]
+margin-top = 5
+margin-bottom = 5
+
+; vim:ft=dosini

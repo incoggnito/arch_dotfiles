@@ -1,0 +1,175 @@
+##
+mcd ()
+{
+    mkdir -p -- "$1" &&
+      cd -P -- "$1"
+}
+
+# # ex - archive extractor
+# # usage: ex <file>
+## Make dir and change to it
+ex ()
+{
+  if [ -f $1 ] ; then
+    case $1 in
+      *.tar.bz2)   tar xjf $1   ;;
+      *.tar.gz)    tar xzf $1   ;;
+      *.tar.xz)    tar xJf $1   ;;
+      *.bz2)       bunzip2 $1   ;;
+      *.rar)       unrar x $1     ;;
+      *.gz)        gunzip $1    ;;
+      *.tar)       tar xf $1    ;;
+      *.tbz2)      tar xjf $1   ;;
+      *.tgz)       tar xzf $1   ;;
+      *.zip)       unzip $1     ;;
+      *.Z)         uncompress $1;;
+      *.7z)        7z x $1      ;;
+      *)           echo "'$1' cannot be extracted via ex()" ;;
+    esac
+  else
+    echo "'$1' is not a valid file"
+  fi
+}
+
+## System
+# {{{
+alias cat="ccat"
+alias ls="exa"
+alias grep="rg"
+alias fm="cfiles"
+
+createenvrc() {
+  echo layout anaconda $1 > .envrc
+  direnv allow .
+}
+alias cenv=createenvrc
+
+alias y="yay -S"
+alias sps="sudo pacman -S"
+alias syu="sudo pacman -Syu"
+alias spr="sudo pacman -R"
+
+alias rf="rm -rf"
+alias v="nvim"
+alias vrc="nvim -S ~/.config/nvim/sessions/vimrc"
+alias zrc="nvim ~/.zshrc"
+alias prc="nvim ~/.config/picom.conf"
+alias arc="nvim ~/.config/alacritty.yml"
+alias irc="nvim ~/.config/i3/config"
+alias mrc="nvim ~/.neomuttrc"
+alias xrc="nvim ~/.xinitrc"
+alias Xrc="nvim ~/.Xressources"
+alias la="ls -al"
+alias reload="source ~/.zshrc"
+alias wiki="nvim ~/.config/vimwiki/index.md"
+alias ca="conda activate py3conda"
+alias ci="conda install -c"
+alias cu="conda update"
+alias \#='sudo -v; sudo'
+alias ..='cd ..'
+# }}}
+
+# TaskWarrior
+# {{{
+
+alias ta="task add"
+alias tap='task add project:Personal'
+alias taw='task add project:Work'
+alias tl="task list"
+alias tproj=taskprojfunc
+alias ttag=tasktagfunc
+alias tw=taskwaitfunc
+alias td=taskdeletefunc
+
+# functions
+taskprojfunc () {
+    task $1 modify project:$2
+}
+tasktagfunc () {
+
+    # task 1 modify tag "fruits"
+    task $1 modify tag:$2
+}
+taskwaitfunc(){
+    # task 1 wait:+5d
+    task $1 wait:$2
+}
+taskdeletefunc(){
+    # task 1 wait:+5d
+    task $1 delete
+}#}}}
+
+
+#learned how2
+alias "todb"="bash ~/.config/how2/input "
+alias "db"="bash ~/.config/how2/output "
+
+# YADM
+# {{{
+alias y="yadm enter"
+alias ys="yadm status"
+alias ya="yadm add"
+alias ym="yadm commit -m"
+alias yp="yadm push origin master"
+alias yb="yadm branch"
+alias yc="yadm checkout"
+alias yd="yadm diff"
+alias yl="yadm list -a"
+alias ye="yadm encyrpt"
+# }}}
+
+# GIT
+# {{{
+alias gs="git status"
+alias ga="git add"
+alias gm="git commit -m"
+alias gpush="git push origin master"
+alias gb="git branch"
+alias gc="git checkout"
+alias mail="neomutt"
+alias svim="sudoedit"
+alias linode="ssh inco@139.162.151.23"
+# }}}
+
+# Alias completion functions
+#{{{
+# blank aliases
+typeset -a baliases
+baliases=()
+
+balias() {
+  alias $@
+  args="$@"
+  args=${args%%\=*}
+  baliases+=(${args##* })
+}
+
+# ignored aliases
+typeset -a ialiases
+ialiases=()
+
+ialias() {
+  alias $@
+  args="$@"
+  args=${args%%\=*}
+  ialiases+=(${args##* })
+}
+
+# functionality
+expand-alias-space() {
+  [[ $LBUFFER =~ "\<(${(j:|:)baliases})\$" ]]; insertBlank=$?
+  if [[ ! $LBUFFER =~ "\<(${(j:|:)ialiases})\$" ]]; then
+    zle _expand_alias
+  fi
+  zle self-insert
+  if [[ "$insertBlank" = "0" ]]; then
+    zle backward-delete-char
+  fi
+}
+zle -N expand-alias-space
+
+bindkey " " expand-alias-space
+bindkey -M isearch " " magic-space
+
+#}}}
+#/* vim: set filetype=zsh : */ 

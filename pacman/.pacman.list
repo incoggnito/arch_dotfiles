@@ -1,0 +1,229 @@
+acpid #A daemon for delivering ACPI power management events with netlink support
+alacritty #A cross-platform, GPU-accelerated terminal emulator
+alsa-firmware #Firmware binaries for loader programs in alsa-tools and hotplug firmware loader
+alsa-plugins #Additional ALSA plugins
+alsa-tools #Advanced tools for certain sound cards
+alsa-utils #Advanced Linux Sound Architecture - Utilities
+android-tools #Android platform tools
+arch-audit #An utility like pkg-audit based on Arch CVE Monitoring Team data
+atool #A script for managing file archives of various types
+autoconf #A GNU tool for automatically configuring source code
+automake #A GNU tool for automatically creating Makefiles
+autotiling #Script for sway and i3 to automatically switch the horizontal / vertical window split orientation
+base #Minimal package set to define a basic Arch Linux installation
+bash-completion #Programmable completion for the bash shell
+bash-language-server #Bash language server implementation based on Tree Sitter and its grammar for Bash
+bdf-unifont #GNU Unifont Glyphs
+binutils #A set of programs to assemble and manipulate binary and object files
+bison #The GNU general-purpose parser generator
+bitwarden-bin #A secure and free password manager for all of your devices.
+borg #Deduplicating backup program with compression and authenticated encryption
+brave-bin #Web browser that blocks ads and trackers by default (binary release).
+broot #Fuzzy Search + tree + cd
+brother-hl2270dw #Brother HL-2270DW CUPS Driver
+browserpass-chromium #Chromium extension for Browserpass, browser extension for zx2c4's pass (password manager)
+byzanz #Record what's happening on your desktop
+ccat #Colorizes output for cat.
+cfiles #A ncurses file manager written in C
+cheat #Allows you to create and view interactive cheatsheets on the command-line
+clamav #Anti-virus toolkit for Unix
+clang #C language family frontend for LLVM
+cmake #A cross-platform open-source make system
+colorpicker #Click on a pixel on your screen and print its color value in RGB. Written for X11.
+cronie #Daemon that runs specified programs at scheduled times and related tools
+cups #The CUPS Printing System - daemon package
+devtools #Tools for Arch Linux package maintainers
+dhcpcd #RFC2131 compliant DHCP client daemon
+docker #Pack, ship and run any application as a lightweight container
+dosfstools #DOS filesystem utilities
+dotnet-runtime #The .NET Core runtime
+dunst #Customizable and lightweight notification-daemon
+dvtm #Dynamic virtual terminal manager.
+e2fsprogs #Ext2/3/4 filesystem utilities
+efibootmgr #Linux user-space application to modify the EFI Boot Manager
+exa #ls replacement
+expac #pacman database extraction utility
+fail2ban #Bans IPs after too many failed authentication attempts
+fakechroot #Gives a fake chroot environment
+fakeroot #Tool for simulating superuser privileges
+fd #Simple, fast and user-friendly alternative to find
+feh #Fast and light imlib2-based image viewer
+file #File type identification utility
+findutils #GNU utilities to locate files
+firefox #Standalone web browser from mozilla.org
+flameshot #Powerful yet simple to use screenshot software
+flex #A tool for generating text-scanning programs
+fzf #Command-line fuzzy finder
+g3dviewer #A 3D file viewer for GTK+ supporting a variety of file types
+gawk #GNU version of awk
+gcc #The GNU Compiler Collection - C and C++ frontends
+gettext #GNU internationalization library
+ghostscript #An interpreter for the PostScript language
+gimp #GNU Image Manipulation Program
+git #the fast distributed version control system
+gparted #A Partition Magic clone, frontend to GNU Parted
+gptfdisk #A text-mode partitioning tool that works on GUID Partition Table (GPT) disks
+grep #A string search utility
+groff #GNU troff text-formatting system
+gzip #GNU compression utility
+hdparm #A shell utility for manipulating Linux IDE drive/driver parameters
+htop #Interactive process viewer
+i3-gaps #A fork of i3wm tiling window manager with more features, including gaps
+i3blocks #Define blocks for your i3bar status line
+i3lock #Improved screenlocker based upon XCB and PAM
+i3status #Generates status bar to use with i3bar, dzen2 or xmobar
+inkscape #Professional vector graphics editor
+intel-ucode #Microcode update files for Intel CPUs
+jack2 #C++ version of the JACK low-latency audio server for multi-processor machines
+jq #Command-line JSON processor
+khal #CLI calendar application build around CalDAV
+lastpass-cli #LastPass command line interface tool
+latex-mk #tool for managing LaTeX projects
+lazygit #A simple terminal UI for git commands
+lib32-glibc #GNU C Library (32-bit)
+lib32-nvidia-utils #NVIDIA drivers utilities (32-bit)
+libcurl-compat #An URL retrieval library (without versioned symbols)
+libreoffice-fresh #LibreOffice branch which contains new features and program enhancements
+libtool #A generic library support script
+linux #The Linux kernel and modules
+linux-firmware #Firmware files for Linux
+linux-headers #Headers and scripts for building modules for the Linux kernel
+linux-lts #The LTS Linux kernel and modules
+linux-lts-headers #Headers and scripts for building modules for the LTS Linux kernel
+llpp #opengl accelerated pdf viewer based on mupdf
+lvm2 #Logical Volume Manager 2 utilities
+lynx #A text browser for the World Wide Web
+m4 #The GNU macro processor
+make #GNU make utility to maintain groups of programs
+man-db #A utility for reading man pages
+man-pages #Linux man pages
+mediainfo #Supplies technical and tag information about a video or audio file (CLI interface)
+miniconda3 #Mini version of Anaconda Python distribution.
+mirage #A simple GTK+ Image Viewer
+most #A terminal pager similar to 'more' and 'less'
+mpd #Flexible, powerful, server-side application for playing music
+mpv #a free, open source, and cross-platform media player
+nautilus #Default file manager for GNOME
+neofetch #A CLI system information tool written in BASH that supports displaying images.
+neomutt #A version of mutt with added features
+nerd-fonts-source-code-pro #Patched font SourceCodePro from nerd-fonts library
+net-tools #Configuration tools for Linux networking
+nmap #Utility for network discovery and security auditing
+nodejs #Evented I/O for V8 javascript
+notmuch #Notmuch is not much of an email program
+npm #A package manager for javascript
+ntp #Network Time Protocol reference implementation
+numlockx #Turns on the numlock key in X11.
+nvidia #NVIDIA drivers for linux
+nvidia-settings #Tool for configuring the NVIDIA graphics driver
+okular #Document Viewer
+openssh #Premier connectivity tool for remote login with the SSH protocol
+p7zip #Command-line file archiver with high compression ratio
+pacman-contrib #Contributed scripts and tools for pacman systems
+pass #Stores, retrieves, generates, and synchronizes passwords securely
+patch #A utility to apply patch files to original sources
+pdftk #Command-line tool for working with PDFs
+peek #Simple screen recorder with an easy to use interface
+pick-colour-picker #Colour picker that remembers where you picked colours from
+picom #X compositor that may fix tearing issues
+pkgconf #Package compiler and linker metadata toolkit
+playerctl #mpris media player controller and lib for spotify, vlc, audacious, bmp, xmms2, and others.
+polybar #A fast and easy-to-use status bar
+powerline-fonts #patched fonts for powerline
+profile-sync-daemon #Symlinks and syncs browser profile dirs to RAM
+pulseaudio-jack #Jack support for PulseAudio
+pyenv #Easily switch between multiple versions of Python
+pyenv-virtualenv #pyenv plugin to manage virtualenv (a.k.a. python-virtualenv)
+python-dbus #Python bindings for DBUS
+python-gobject #Python Bindings for GLib/GObject/GIO/GTK+
+python-pip #The PyPA recommended tool for installing Python packages
+python-pipenv #Sacred Marriage of Pipfile, Pip, & Virtualenv.
+python-pyalsa #Python binding for the ALSA library
+python-pynvim #Python client for Neovim
+python2-pip #The PyPA recommended tool for installing Python packages
+qjackctl #A Qt front-end for the JACK low-latency audio server
+ranger #Simple, vim-like file manager
+realtime-privileges #Realtime privileges for users
+redshift #Adjusts the color temperature of your screen according to your surroundings.
+reflector #A Python 3 module and script to retrieve and filter the latest Pacman mirror list.
+rofi #A window switcher, application launcher and dmenu replacement
+rpmextract #Script to convert or extract RPM archives (contains rpm2cpio)
+rsync #A fast and versatile file copying tool for remote and local files
+ruby #An object-oriented language for quick and easy programming
+rxvt-unicode #Unicode enabled rxvt-clone terminal emulator (urxvt)
+sed #GNU stream editor
+shellcheck #Shell script analysis tool
+signify #OpenBSD tool to signs and verify signatures on files
+skim #Fuzzy Finder in rust!
+spamassassin #A mail filter to identify spam.
+spotify #A proprietary music streaming service
+sqlitebrowser #SQLite Database browser is a light GUI editor for SQLite databases, built on top of Qt
+sudo #Give certain users the ability to run some commands as root
+sxiv #Simple X Image Viewer
+systemd #system and service manager
+systemd-boot-pacman-hook #Pacman hook to upgrade systemd-boot after systemd upgrade.
+systemd-boot-password #systemd-boot with password-protected editor
+task #A command-line todo list manager
+telegram-desktop #Official Telegram Desktop client
+texinfo #GNU documentation system for on-line information and printed output
+texlive-bibtexextra #TeX Live - Additional BibTeX styles and bibliography databases
+texlive-core #TeX Live core distribution
+texlive-fontsextra #TeX Live - all sorts of extra fonts
+texlive-formatsextra #TeX Live - collection of extra TeX 'formats'
+texlive-games #TeX Live - Setups for typesetting various board games, including chess
+texlive-humanities #TeX Live - LaTeX packages for law, linguistics, social sciences, and humanities
+texlive-latexextra #TeX Live - Large collection of add-on packages for LaTeX
+texlive-music #TeX Live - Music typesetting packages
+texlive-pictures #TeX Live - Packages for drawings graphics
+texlive-pstricks #TeX Live - Additional PSTricks packages
+texlive-publishers #TeX Live - LaTeX classes and packages for specific publishers
+texlive-science #TeX Live - Typesetting for mathematics, natural and computer sciences
+textidote-bin #Spelling, grammar and style checking on LaTeX documents
+the_silver_searcher #Code searching tool similar to Ack, but faster
+thunderbird #Standalone mail and news reader from mozilla.org
+timew #Timewarrior, A command line time tracking application
+tk #A windowing toolkit for use with tcl
+tldr #Command line client for tldr, a collection of simplified and community-driven man pages.
+tmux #A terminal multiplexer
+tor #Anonymizing overlay network.
+tor-browser #Tor Browser Bundle: anonymous browsing using Firefox and Tor (international PKGBUILD)
+torbrowser-launcher #Securely and easily download, verify, install, and launch Tor Browser in Linux
+trash-cli #Command line trashcan (recycle bin) interface
+ttf-dejavu #Font family based on the Bitstream Vera Fonts with a wider range of characters
+ttf-font-awesome #Iconic font designed for Bootstrap
+ttf-hack #A hand groomed and optically balanced typeface based on Bitstream Vera Mono.
+ttf-ionicons #Font from the Ionic mobile framework
+ttf-weather-icons #Icon font with 222 weather themed icons
+ttf-yosemite-san-francisco-font-git #San Francisco font - the Apple Watch font
+ueberzug #Command line util which allows to display images in combination with X11
+universal-ctags-git #Generates an index (or tag) file of language objects found in source files
+unrar #The RAR uncompression program
+unzip #For extracting and viewing files in .zip archives
+urlscan #Mutt and terminal url selector
+usbutils #A collection of USB tools to query connected USB devices
+util-linux #Miscellaneous system utilities for Linux
+vdirsyncer #Synchronize CalDAV and CardDAV.
+vim-language-server #Vim language server
+vit #Terminal interface for Taskwarrior with Vim key bindings and colorization
+vscodium-bin #Binary releases of VS Code without MS branding/telemetry/licensing.
+which #A utility to show the full path of commands
+woeusb-git #A Linux program to create Windows USB stick installer from a real Windows DVD or an image
+xarchiver #GTK+ frontend to various command line archivers
+xautolock #An automatic X screen-locker/screen-saver
+xbindkeys #Launch shell commands with your keyboard or your mouse under X
+xdg-user-dirs #Manage user directories like ~/Desktop and ~/Music
+xorg-xinit #X.Org initialisation program
+xorg-xrandr #Primitive command line interface to RandR extension
+xorg-xwininfo #Command-line utility to print information about windows on an X server
+xsel #XSel is a command-line program for getting and setting the contents of the X selection
+yadm-git #Yet Another Dotfiles Manager
+yarn #Fast, reliable, and secure dependency management
+yay #Yet another yogurt. Pacman wrapper and AUR helper written in go.
+zenity #Display graphical dialog boxes from shell scripts
+zip #Compressor/archiver for creating and modifying zipfiles
+zplug #A next-generation plugin manager for zsh
+zsh #A very advanced and programmable command interpreter (shell) for UNIX
+zsh-autosuggestions #Fish-like autosuggestions for zsh
+zsh-completions #Additional completion definitions for Zsh
+zsh-syntax-highlighting #Fish shell like syntax highlighting for Zsh
+zsh-theme-powerlevel10k #Powerlevel10k is a theme for Zsh. It emphasizes speed, flexibility and out-of-the-box experience.
