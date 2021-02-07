@@ -23,9 +23,8 @@ autoload -Uz _zinit
 #####################
 # THEME             #
 #####################
-zinit ice pick"async.zsh" src"pure.zsh"
+zinit ice compile'(pure|async).zsh' pick'async.zsh' src'pure.zsh'
 zinit light sindresorhus/pure
-
 #####################
 # PLUGINS           #
 #####################
@@ -83,6 +82,8 @@ zinit ice atclone'PYENV_ROOT="$PWD" ./libexec/pyenv init - > zpyenv.zsh' \
     atinit'export PYENV_ROOT="$PWD"' atpull"%atclone" \
     as'command' pick'bin/pyenv' src"zpyenv.zsh" nocompile'!'
 zinit light pyenv/pyenv
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
 # GIT DIFF
 zinit ice lucid wait"0" as"program" from"gh-r" pick"delta*/delta"
 zinit light 'dandavison/delta'
@@ -129,7 +130,7 @@ setopt listpacked
 setopt automenu
 unsetopt BEEP
 setopt vi
-
+chpwd() exa --git --icons --classify --group-directories-first --time-style=long-iso --group --color-scale
 #####################
 # COLORING          #
 #####################
@@ -170,3 +171,9 @@ export PATH=$PATH:/usr/local/go/bin:~/.local/bin:~/bin
 # GO SETTINGS       #
 #####################
 export GOPATH=$HOME/Dev/go
+
+
+
+source /home/inco/.config/broot/launcher/bash/br
+
+export PATH="$HOME/.poetry/bin:$PATH"

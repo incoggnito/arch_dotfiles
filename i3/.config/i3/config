@@ -98,7 +98,8 @@ bindsym $mod+r restart
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
 
 # lock the screen
-set $Locker "i3lock -i ~/.config/i3/lock.png -t -e -f"
+# set $Locker  "./fuzzy_lock.sh" #"i3lock -i ~/.config/i3/lock.png -t -e -f"
+set $Locker "./home/inco/.config/i3/fuzzy_lock.sh"
 bindsym $mod+g exec --no-startup-id $Locker
 
 # System Actions
@@ -182,6 +183,7 @@ for_window [class="Gimp"] move to workspace $ws7, workspace $ws7, focus
 
 # Autostart Applications
 # {{{
+exec_always --no-startup-id autotiling -w 1 3 5
 exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 exec --no-startup-id brave
 exec --no-startup-id spotify
